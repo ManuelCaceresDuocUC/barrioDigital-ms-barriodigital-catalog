@@ -30,6 +30,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, ex.getMessage(), null);
     }
 
+    @ExceptionHandler(QuotaExhaustedException.class)
+    public ResponseEntity<ApiError> handleQuotaExhausted(QuotaExhaustedException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage(), null);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> fieldErrors = new LinkedHashMap<>();
