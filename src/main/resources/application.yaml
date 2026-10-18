@@ -1,3 +1,21 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: ms-barriodigital-catalog
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
+    username: barriodigital
+    password: barriodigital
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Mismo tenant que ms-barriodigital-requests. En Docker se sobrescribe por variable de entorno.
+          issuer-uri: https://login.microsoftonline.com/ffcb40ec-aa43-4c4e-acd8-4d27467872c5/v2.0
