@@ -68,6 +68,14 @@ public class ProcedureController {
         service.deactivate(id);
     }
 
+    /** Reactiva un tipo desactivado. Idempotente: si ya estaba activo también responde 204. */
+    @PutMapping("/{id}/activate")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('Admin')")
+    public void activate(@PathVariable Long id) {
+        service.activate(id);
+    }
+
     private boolean canSeeInactive(Authentication auth) {
         return auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)

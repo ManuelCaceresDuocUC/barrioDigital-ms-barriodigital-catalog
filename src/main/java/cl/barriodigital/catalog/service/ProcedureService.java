@@ -63,6 +63,12 @@ public class ProcedureService {
         find(id, true).setActive(false);
     }
 
+    /** Reactiva un tipo dado de baja. Es idempotente: si ya estaba activo no cambia nada. */
+    @Transactional
+    public void activate(Long id) {
+        find(id, true).setActive(true);
+    }
+
     private ProcedureType find(Long id, boolean includeInactive) {
         return (includeInactive
                 ? repository.findById(id)
