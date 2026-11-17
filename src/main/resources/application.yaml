@@ -1,21 +1,24 @@
+# Configuración del microservicio de catálogo (ms-catalog).
 server:
-  port: 8081
+  port: 8081   # En el compose de ec2-apps se sobrescribe con SERVER_PORT=8082.
 
 spring:
   application:
     name: ms-barriodigital-catalog
+  # Conexión a Oracle (en la nube se sobrescribe con variables de entorno).
   datasource:
     url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
     username: barriodigital
     password: barriodigital
     driver-class-name: oracle.jdbc.OracleDriver
   jpa:
-    database-platform: org.hibernate.dialect.OracleDialect
+    database-platform: org.hibernate.dialect.OracleDialect   # SQL específico de Oracle.
     hibernate:
-      ddl-auto: update
+      ddl-auto: update   # Crea/ajusta las tablas según las entidades (cómodo en desarrollo).
   security:
     oauth2:
       resourceserver:
         jwt:
           # Mismo tenant que ms-barriodigital-requests. En Docker se sobrescribe por variable de entorno.
+          # Spring descarga de este emisor las claves públicas para verificar la firma de los JWT.
           issuer-uri: https://login.microsoftonline.com/ffcb40ec-aa43-4c4e-acd8-4d27467872c5/v2.0
